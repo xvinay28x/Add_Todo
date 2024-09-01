@@ -5,7 +5,7 @@ export default function SetTheme({
 }: {
   className?: string;
 }): React.ReactElement {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
 
   return (
     <div>
