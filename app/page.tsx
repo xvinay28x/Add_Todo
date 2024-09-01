@@ -7,7 +7,7 @@ export default function Page() {
     <div className="flex h-screen w-full justify-center items-center bg-base-100">
       <div className="bg-base-100 shadow-xl lg:w-2/3 h-[70%] md:w-3/4 sm:w-3/4 rounded-xl overflow-scroll">
         <div className="h-full w-full bg-base-200 p-4">
-          <SetTheme className="absolute" />
+          <SetTheme className="absolute text-primary" />
           <div className="flex justify-center h-[10%] text-4xl items-center text-primary ">
             Todo
           </div>
