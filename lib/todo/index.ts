@@ -24,7 +24,11 @@ async function get(id: string, prisma: PrismaClient = new PrismaClient()) {
 }
 
 async function find(prisma: PrismaClient = new PrismaClient()) {
-  return prisma.todo.findMany();
+  return prisma.todo.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 }
 
 

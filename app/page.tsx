@@ -1,13 +1,22 @@
 "use client";
 
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import SetTheme from "./components/setTheme";
 import store from "./store";
+import { useEffect } from "react";
 
 export default function Page() {
   const [todo, setTodo] = useAtom(store.createTodoInput);
 
   const addTodo = useSetAtom(store.createTodo);
+
+  const fetchTodo = useSetAtom(store.findTodo);
+
+  const allTodo = useAtomValue(store.todoAtom);
+
+  useEffect(() => {
+    void fetchTodo();
+  }, []);
 
   return (
     <div className="flex h-screen w-full justify-center items-center bg-base-100">
@@ -24,14 +33,32 @@ export default function Page() {
               className="input input-bordered w-full h-full"
               onChange={(e) => setTodo({ title: e.target.value })}
             />
-            <button className="btn btn-primary rounded-lg h-full px-8 text-lg" onClick={() => {
-              void addTodo()
-            }}>
+            <button
+              className="btn btn-primary rounded-lg h-full px-8 text-lg"
+              onClick={() => {
+                void addTodo();
+              }}
+            >
               Add
             </button>
           </div>
           <hr className="border-t-2 border-base-300 my-2" />
-          <div className="bg-base-200 h-[80%] rounded-lg">hello</div>
+          <div className="bg-base-200 h-[80%] rounded-lg justify-center">
+            {allTodo.length > 0 && allTodo != null
+              ? allTodo.map((todo) => (
+                  <div
+                    key={todo?.id}
+                    className="flex justify-between items-center p-4 gap-2 border-b-2 border-base-300"
+                  >
+                    <div>{todo?.title}</div>
+                    <div className="flex gap-2">
+                      <button className="btn btn-primary">Edit</button>
+                      <button className="btn btn-info">Delete</button>
+                    </div>
+                  </div>
+                ))
+              : null}
+          </div>
         </div>
       </div>
     </div>

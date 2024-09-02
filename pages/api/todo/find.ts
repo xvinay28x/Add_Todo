@@ -6,23 +6,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  console.log("Request method:", req.method);
-  console.log("Request body:", req.body);
-
   const { method } = req;
   switch (method) {
-    case "POST":
+    case "GET":
       try {
-        const todoObject: Todo = await todo.create(req.body);
-        console.log("Todo created successfully:", todoObject);
-        return res.status(201).json({ data: todoObject });
+        const todoObjects: Todo[] = await todo.find();
+        console.log("Todo fetch successfully:", todoObjects);
+        return res.status(201).json({ data: todoObjects });
       } catch (error) {
-        console.error("Error creating todo:", error);
+        console.error("Error fetching todo:", error);
         return res.status(400).json({ error: (error as Error).message });
       }
 
     default:
-      res.setHeader("Allow", ["POST"]);
+      res.setHeader("Allow", ["GET"]);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
