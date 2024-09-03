@@ -4,6 +4,12 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import SetTheme from "./components/setTheme";
 import store from "./store";
 import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPenToSquare,
+  faTrash,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Page() {
   const [todo, setTodo] = useAtom(store.createTodoInput);
@@ -51,9 +57,13 @@ export default function Page() {
                     className="flex justify-between items-center p-4 gap-2 border-b-2 border-base-300"
                   >
                     <div>{todo?.title}</div>
-                    <div className="flex gap-2">
-                      <button className="btn btn-primary">Edit</button>
-                      <button className="btn btn-info">Delete</button>
+                    <div className="flex gap-4">
+                      <button className="text-primary">
+                        <FontAwesomeIcon icon={faPenToSquare} size="lg" />
+                      </button>
+                      <button className="text-secondary">
+                        <FontAwesomeIcon icon={faTrash} size="lg" />
+                      </button>
                     </div>
                   </div>
                 ))

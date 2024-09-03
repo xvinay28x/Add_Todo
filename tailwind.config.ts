@@ -21,6 +21,7 @@ const config: Config = {
       {
         light: {
           primary: "#2094f3",
+          secondary: "#EE6557",
           "base-100": "#ffffff",
           "base-200": "#f7f7f7",
           "base-300": "#e0e0e0",
@@ -33,6 +34,8 @@ const config: Config = {
       {
         dark: {
           primary: "#ea3367",
+          secondary: "#8C3EBA",
+          accent: "#FB8126",
           "base-100": "#202021",
           "base-200": "#1d1e1f",
           "base-300": "#1b1b1c",
