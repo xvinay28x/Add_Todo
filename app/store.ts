@@ -15,7 +15,7 @@ const createTodo = atom(null, async (get, set): Promise<Todo> => {
     body: JSON.stringify({ ...todoData }),
   });
   const jsonResponse = await response.json();
-  return jsonResponse.data;
+  return jsonResponse.data as Todo;
 });
 // =======================================================
 
@@ -34,8 +34,8 @@ const updateTodo = atom(
       body: JSON.stringify({ ...todoData }),
     });
     const jsonResponse = await response.json();
-    return jsonResponse.data;
-  }
+    return jsonResponse.data as Todo;
+  },
 );
 // =======================================================
 
@@ -66,7 +66,7 @@ const deleteTodo = atom(
     });
     const jsonResponse = await response.json();
     return jsonResponse.data;
-  }
+  },
 );
 // =========================================================
 
