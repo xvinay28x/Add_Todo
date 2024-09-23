@@ -6,15 +6,20 @@ import store from "./store";
 import { useEffect, useState } from "react";
 import TodoInfo from "./components/todo";
 import Skeleton from "./components/skeleton";
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
   const [todo, setTodo] = useAtom(store.createTodoInput);
 
-  const addTodo = useSetAtom(store.createTodo);
+  const addTodo = useSetAtom(store.createTodoAtom);
 
-  const fetchTodo = useSetAtom(store.findTodo);
+  const fetchTodo = useSetAtom(store.findTodoAtom);
 
   const allTodo = useAtomValue(store.todoAtom);
+
+  const theme = useAtomValue(store.themeAtom);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,13 +43,19 @@ export default function Page() {
           <input
             type="text"
             placeholder="Type here"
+            defaultValue={todo.title}
             className="input input-bordered w-full h-full"
             onChange={(e) => setTodo({ title: e.target.value })}
           />
           <button
             className="btn btn-primary rounded-lg h-full px-8 text-lg"
             onClick={() => {
-              void addTodo();
+              if (todo.title != "") {
+                void addTodo();
+              } else {
+                console.log("title : ", todo.title);
+                toast.error("Please write something");
+              }
             }}
           >
             Add
@@ -57,6 +68,8 @@ export default function Page() {
             : dummyTodo.map((it) => <Skeleton key={it} />)}
         </div>
       </div>
+      {/* Add ToastContainer here */}
+      <ToastContainer theme={theme} autoClose={2000} />
     </div>
   );
 }

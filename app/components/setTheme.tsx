@@ -1,11 +1,13 @@
+import { useAtom } from "jotai";
 import React, { useState } from "react";
+import store from "../store";
 
 export default function SetTheme({
   className,
 }: {
   className?: string;
 }): React.ReactElement {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useAtom(store.themeAtom);
 
   return (
     <div>

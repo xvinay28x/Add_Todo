@@ -8,9 +8,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { DateTime } from "luxon";
 import { faClock } from "@fortawesome/free-solid-svg-icons/faClock";
+import store from "../store";
+import { useSetAtom } from "jotai";
 
 export default function TodoInfo({ todo }: { todo: Todo }): React.ReactElement {
   const [checked, setChecked] = useState(false);
+
+  const deleteTodo = useSetAtom(store.deleteTodoAtom);
 
   return (
     <div
@@ -18,7 +22,7 @@ export default function TodoInfo({ todo }: { todo: Todo }): React.ReactElement {
       className="flex justify-between items-center p-4 gap-2 border-b-2 border-base-300"
     >
       <div className="flex gap-4">
-        <div>
+        <div className="flex items-center">
           <input
             type="checkbox"
             className="checkbox checkbox-sm rounded-full checkbox-primary"
@@ -27,9 +31,7 @@ export default function TodoInfo({ todo }: { todo: Todo }): React.ReactElement {
             }}
           />
         </div>
-        <div
-          className={`${checked ? "line-through text-stone-500" : ""} text-lg`}
-        >
+        <div className={`${checked ? "line-through" : ""} text-lg`}>
           {todo?.title}
         </div>
       </div>
@@ -45,7 +47,12 @@ export default function TodoInfo({ todo }: { todo: Todo }): React.ReactElement {
         <button className="text-primary">
           <FontAwesomeIcon icon={faPenToSquare} size="lg" />
         </button>
-        <button className="text-secondary">
+        <button
+          className="text-secondary"
+          onClick={() => {
+            void deleteTodo(todo.id);
+          }}
+        >
           <FontAwesomeIcon icon={faTrash} size="lg" />
         </button>
       </div>
