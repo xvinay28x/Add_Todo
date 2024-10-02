@@ -9,6 +9,7 @@ import Skeleton from "./components/skeleton";
 import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import { RESET } from "jotai/utils";
 
 export default function Page() {
   const [todo, setTodo] = useAtom(store.createTodoInput);
@@ -41,11 +42,14 @@ export default function Page() {
         </div>
         <div className="flex h-[8%] gap-2">
           <input
+            id="todo-input"
             type="text"
             placeholder="Type here"
-            defaultValue={todo.title}
+            value={todo.title}
             className="input input-bordered w-full h-full"
-            onChange={(e) => setTodo({ title: e.target.value })}
+            onChange={(e) => {
+              setTodo({ title: e.target.value });
+            }}
           />
           <button
             className="btn btn-primary rounded-lg h-full px-8 text-lg"
@@ -53,7 +57,6 @@ export default function Page() {
               if (todo.title != "") {
                 void addTodo();
               } else {
-                console.log("title : ", todo.title);
                 toast.error("Please write something");
               }
             }}
